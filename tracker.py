@@ -14,21 +14,21 @@ def check_price():
 
     title = soup.find("h2", class_="wt-screen-reader-only").get_text()
     price = soup.find("p", class_="wt-text-title-03 wt-mr-xs-2").get_text()
-    saved = soup.find("p", class_="wt-text-caption wt-text-slime").get_text()
-    re.findall('\d+', price)
+    saved = soup.find("p", class_="wt-text-caption wt-text-slime")
+    price = re.findall('\d+\.\d+', price)
     if (saved == None):
         saved = 'Not on sale'
     else:
+        saved = saved.get_text()
         saved = saved.strip()
 
-    print(price)
-    # converted_price = float(price[3:])
+    converted_price = float(price[0])
 
-    # if (converted_price < 30):
-    #     send_mail()
+    if (converted_price < 35):
+        send_mail(saved)
+    print(saved)
 
-
-def send_mail():
+def send_mail(saved):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
@@ -37,7 +37,7 @@ def send_mail():
     #### unique to you for sending to your own email 
     server.login('xx', 'xx')
     subject = 'Item has dropped in price'
-    body =  '{saved}'
+    body =  saved
 
     msg = f"Subject: {subject}\n\n{body}"
 
