@@ -49,7 +49,7 @@ def check_price():
                 break
             except ValueError:
                 print("This is not a number. Please enter a valid number")
-    print(val)
+
     if (float(price[0]) < val):
         print('Reached')
         send_mail(saved, current_price)
@@ -62,15 +62,15 @@ def send_mail(saved, current_price):
     server.ehlo()
 
     #### unique to you for sending to your own email 
-    server.login('guistar9786@gmail.com', 'uojozsrfxskqctak')
+    server.login('xx', 'xx')
     subject = 'Item has dropped in price'
     body =  'This item is currently : ' + current_price.strip() + ' ' + saved
 
     msg = f"Subject: {subject}\n\n{body}"
 
     server.sendmail(
-        'guistar9786@gmail.com',
-        'guistar9786@gmail.com',
+        'xx',
+        'xx',
         msg
     )
 
